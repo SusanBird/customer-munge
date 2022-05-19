@@ -5,7 +5,7 @@ Output:
 
 export function greetUsers(customers) {
      // just map over them to make a greeting
-    return true;
+    return customers.map(({ first_name, last_name }) => `Hello ${first_name} ${last_name}!`);
 }
 
 /* 

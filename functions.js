@@ -14,7 +14,7 @@ Output:
 */
 
 export function greetUsersOverAge60(customers) {
-    return customers
+    return customers;
         // first, filter over the user to get the ones over 60
         // then map over them to make a greeting
 }
@@ -53,7 +53,13 @@ Output:
 */
 
 export function getTotalOfEachGender(customers) {
-    return true;
+    return customers.reduce((acc, customer) => {
+        if(acc[customer.gender]) {
+            acc[customer.gender]++;
+        } else {
+            acc[customer.gender] = 1;
+        }
+    }, {});
 }
 
 /* 

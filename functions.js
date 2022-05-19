@@ -59,6 +59,8 @@ export function getTotalOfEachGender(customers) {
         } else {
             acc[customer.gender] = 1;
         }
+
+        return acc;
     }, {});
 }
 

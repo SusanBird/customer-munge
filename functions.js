@@ -14,8 +14,10 @@ Output:
 */
 
 export function greetUsersOverAge60(customers) {
-    const overSixty = customers.filter(customer => customer.age > 60);
-    return overSixty.map(({ first_name, last_name }) => `Hello ${first_name} ${last_name}!`);
+    // const overSixty = customers.filter(customer => customer.age > 60);
+    return customers
+        .filter(customer => customer.age > 60)
+        .map(({ first_name, last_name }) => `Hello ${first_name} ${last_name}!`);
         // first, filter over the user to get the ones over 60
         // then map over them to make a greeting
 }
@@ -41,11 +43,19 @@ Output:
 
 export function getAverageCoolFactor(customers) {
     // map through to make an array of cool factors
-    const coolFactors = customers.map(({ cool_factor }) => ['']);
-    const sumCool = coolFactors.reduce((acc, coolFactor) => { return acc + coolFactor; }, 0);
     // then reduce through that array to get a sum
     // then divide by the total number of customers
-    return sumCool / customers.length;
+    const customerArray = customers.map(({ cool_factor }) => `${cool_factor}`);
+    const customerNumber = customerArray.length;
+
+    return customers
+        // .map(({ cool_factor }) => `${cool_factor}`)
+        .reduce((acc, customer) => { 
+        
+            return acc + (customer.cool_factor / customerNumber);
+
+        }, 0);
+            // return totalCF / customerNumber;
 
 }
 

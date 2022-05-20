@@ -100,8 +100,9 @@ test('addAllAges', (expect) => {
 });
 
 
-skip('getAverageCoolFactor', (expect) => {
-    const expected = 6;
+test('getAverageCoolFactor', (expect) => {
+    const expected = 	
+    5.088888888888888;
 
     const actual = getAverageCoolFactor(customers);
 
@@ -135,7 +136,7 @@ test('getGenderBreakdownOfFordOwners', (expect) => {
     expect.deepEqual(actual, expected);
 });
 
-test('getGenderBreakdownOfEachCar', (expect) => {
+skip('getGenderBreakdownOfEachCar', (expect) => {
     const expected = 
     {
         ford: {

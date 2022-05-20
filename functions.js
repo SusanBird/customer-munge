@@ -28,7 +28,10 @@ Output:
 
 export function addAllAges(customers) {
     // reduce through the customers to make a sum
-    return true;
+    return customers.reduce((acc, customer) => {
+
+        return acc + customer.age;
+    }, 0);
 }
 
 /* 

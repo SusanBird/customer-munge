@@ -113,7 +113,17 @@ Output:
 */
 
 export function getGenderBreakdownOfEachCar(customers) {
-    return true;
+    return customers
+        .map(customer => customer.car_make)
+        .reduce((acc, customer) => {
+            if(acc[customer.gender]) {
+                acc[customer.gender]++;
+            } else {
+                acc[customer.gender] = 1;
+            }
+
+            return acc;
+        }, {});
 }
 
 /* 

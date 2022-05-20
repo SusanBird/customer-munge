@@ -3,6 +3,7 @@ import {
     addAllAges,
     getAllCoolFactorsOfEachCar,
     getAverageCoolFactor,
+    getAverageCoolFactorOfEachCar,
     getGenderBreakdownOfEachCar,
     getGenderBreakdownOfFordOwners,
     getTotalOfEachGender,
@@ -348,9 +349,13 @@ test('getAllCoolFactorsOfEachCar', (expect) => {
 });
 
 skip('getAverageCoolFactorOfEachCar', (expect) => {
-    const expected = true;
+    const expected = { 
+        ford: 5.4,
+        mercedes:  8.5,
+        honda: 2.3
+    };
 
-    const actual = true;
+    const actual = getAverageCoolFactorOfEachCar(customers);
 
     expect.equal(actual, expected);
 });

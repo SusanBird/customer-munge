@@ -236,8 +236,42 @@ Output:
 */
 
 export function getAverageCoolFactorOfEachCar(customers) {
-    return true;
+    const avgCoolFactor = customers.reduce((acc, customer) => {
+        if(!acc[customer.car_make]) {
+            acc[customer.car_make] = customers
+                .filter((customer) => customer.car_make === customer.car_make)
+                .reduce((acc2, customer2, index) => {
+                    acc2 = acc2 + customer2.cool_factor;
+                    return acc2;
+                }, 0) / (customers.filter((customer) => customer.car_make === customer.car_make).length);
+        }
+        return acc;
+    }, {});
+    return avgCoolFactor;
 }
+            
+            
+            
+            
+//             [customer.cool_factor];
+//         } else {
+//             acc[customer.car_make].push(customer.cool_factor);
+//         }
+//         return acc;
+//     });
+// }
+
+// const customerArray = customers.map(({ cool_factor }) => `${cool_factor}`);
+// const customerNumber = customerArray.length;
+
+// return acc + (customer.cool_factor / customerNumber);
+
+
+// return customers.reduce((acc, customer) => {
+
+//     return acc + customer.age;
+// }, 0);
+
 
 
 /* 

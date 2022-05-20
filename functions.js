@@ -1,6 +1,6 @@
 /* 
 Output: 
-['Hello Suzie Summerson!', 'Hello Cacilia Caramuscia', 'Hello Mattie Mungane' etc]
+['Hello Suzi Summerson!', 'Hello Cacilia Caramuscia', 'Hello Mattie Mungane' etc]
 */
 
 export function greetUsers(customers) {
@@ -10,11 +10,12 @@ export function greetUsers(customers) {
 
 /* 
 Output: 
-['Hello Suzie Summerson!', 'Hello Cacilia Caramuscia', etc]
+['Hello Suzi Summerson!', 'Hello Cacilia Caramuscia', etc]
 */
 
 export function greetUsersOverAge60(customers) {
-    return customers;
+    const overSixty = customers.filter(customer => customer.age > 60);
+    return overSixty.map(({ first_name, last_name }) => `Hello ${first_name} ${last_name}!`);
         // first, filter over the user to get the ones over 60
         // then map over them to make a greeting
 }

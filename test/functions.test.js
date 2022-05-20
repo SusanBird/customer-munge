@@ -63,7 +63,7 @@ test('greetUsers', (expect) => {
 });
 
 
-skip('greetUsersOverAge60', (expect) => {
+test('greetUsersOverAge60', (expect) => {
     const expected = [
         'Hello Suzi Summerson!',
         'Hello Boot Penton!',

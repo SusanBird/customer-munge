@@ -2,6 +2,8 @@
 import { 
     addAllAges,
     getAverageCoolFactor,
+    getGenderBreakdownOfEachCar,
+    getGenderBreakdownOfFordOwners,
     getTotalOfEachGender,
     greetUsers,
     greetUsersOverAge60,
@@ -121,12 +123,16 @@ test('getTotalOfEachGender', (expect) => {
     expect.deepEqual(actual, expected);
 });
 
-skip('getGenderBreakdownOfFordOwners', (expect) => {
-    const expected = true;
+test('getGenderBreakdownOfFordOwners', (expect) => {
+    const expected = 	
+    {
+        'Female': 1,
+        'Male': 2
+    };
 
-    const actual = true;
+    const actual = getGenderBreakdownOfFordOwners(customers);
 
-    expect.equal(actual, expected);
+    expect.deepEqual(actual, expected);
 });
 
 skip('getGenderBreakdownOfEachCar', (expect) => {

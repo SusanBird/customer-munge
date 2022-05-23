@@ -292,7 +292,17 @@ Output:
 */
 
 export function makeAgeBrackets(customers) {
-    return true;
+
+    const ageBucketMap = customers.reduce(
+        (acc, customer) => {
+            if(customer.age >0 && customer.age < 11) {
+                if(!acc.10) {
+                    acc.10 = []
+                };
+                acc.10.push(customer)
+            }
+        },
+    )
 }
 
 /* 

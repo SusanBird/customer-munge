@@ -1,20 +1,23 @@
 /* 
 Output: 
-['Hello Suzie Summerson!', 'Hello Cacilia Caramuscia', 'Hello Mattie Mungane' etc]
+['Hello Suzi Summerson!', 'Hello Cacilia Caramuscia', 'Hello Mattie Mungane' etc]
 */
 
 export function greetUsers(customers) {
      // just map over them to make a greeting
-    return true;
+    return customers.map(({ first_name, last_name }) => `Hello ${first_name} ${last_name}!`);
 }
 
 /* 
 Output: 
-['Hello Suzie Summerson!', 'Hello Cacilia Caramuscia', etc]
+['Hello Suzi Summerson!', 'Hello Cacilia Caramuscia', etc]
 */
 
 export function greetUsersOverAge60(customers) {
+    // const overSixty = customers.filter(customer => customer.age > 60);
     return customers
+        .filter(customer => customer.age > 60)
+        .map(({ first_name, last_name }) => `Hello ${first_name} ${last_name}!`);
         // first, filter over the user to get the ones over 60
         // then map over them to make a greeting
 }
@@ -27,7 +30,10 @@ Output:
 
 export function addAllAges(customers) {
     // reduce through the customers to make a sum
-    return true;
+    return customers.reduce((acc, customer) => {
+
+        return acc + customer.age;
+    }, 0);
 }
 
 /* 
@@ -39,7 +45,18 @@ export function getAverageCoolFactor(customers) {
     // map through to make an array of cool factors
     // then reduce through that array to get a sum
     // then divide by the total number of customers
-    return true;
+    const customerArray = customers.map(({ cool_factor }) => `${cool_factor}`);
+    const customerNumber = customerArray.length;
+
+    return customers
+        // .map(({ cool_factor }) => `${cool_factor}`)
+        .reduce((acc, customer) => { 
+        
+            return acc + (customer.cool_factor / customerNumber);
+
+        }, 0);
+            // return totalCF / customerNumber;
+
 }
 
 /* 
@@ -53,7 +70,15 @@ Output:
 */
 
 export function getTotalOfEachGender(customers) {
-    return true;
+    return customers.reduce((acc, customer) => {
+        if(acc[customer.gender]) {
+            acc[customer.gender]++;
+        } else {
+            acc[customer.gender] = 1;
+        }
+
+        return acc;
+    }, {});
 }
 
 /* 
@@ -67,7 +92,17 @@ Output:
 */
 
 export function getGenderBreakdownOfFordOwners(customers) {
-    return true;
+    return customers
+        .filter(customer => customer.car_make === 'Ford')
+        .reduce((acc, customer) => {
+            if(acc[customer.gender]) {
+                acc[customer.gender]++;
+            } else {
+                acc[customer.gender] = 1;
+            }
+
+            return acc;
+        }, {});
 }
 
 /* 
@@ -87,9 +122,69 @@ Output:
 }
 */
 
+
+// first need to break customers into car_make blocks: ford, GMC, etc.
+// for each block reduce through to find gender breakdown
+
 export function getGenderBreakdownOfEachCar(customers) {
-    return true;
+
+    const carMakeBreakdown = customers.reduce((acc, customer) => {
+        if(!acc[customer.car_make]) {
+            acc[customer.car_make] = customers
+                .filter((filteredCustomer) => customer.car_make === filteredCustomer.car_make)
+                .reduce((acc, customer) => {
+                    if(!acc[customer.gender]) {
+                        acc[customer.gender] = 1;
+                    } else {
+                        acc[customer.gender]++;
+                    }
+                    return acc;
+                }, {});
+        }
+        return acc;
+    }, {});
+    return carMakeBreakdown;
 }
+    
+    // const carMakeMap = customers.reduce(
+    //     (acc, customer) => {
+    //         if(customer.car_make) {
+    //             if(!customer.car_make) {
+    //                 customer.car_make = [];
+    //             }
+    //             customer.car_make.push(customer);
+    //         }
+    //     }
+    // );
+
+    // const genderBreakdown = Object  
+    //     .keys(carMakeMap)
+    //     .reduce((acc, customerKey) => {
+    //         if(acc[customerKey.gender]) {
+    //             acc[customerKey.gender]++;
+    //         } else {
+    //             acc[customerKey.gender] = 1;
+    //         }
+
+
+    //         return genderBreakdown;
+
+    //     }, {});}
+
+//////////////////////////////////
+
+
+        // // .map(customer => customer.car_make)
+        // .map(({ car_make }) => `${car_make}`)
+        // .reduce((acc, customer) => {
+        //     if(acc[customer.gender]) {
+        //         acc[customer.gender]++;
+        //     } else {
+        //         acc[customer.gender] = 1;
+        //     }
+
+        //     return acc;
+        // }, {});
 
 /* 
 Output: 
@@ -101,10 +196,28 @@ Output:
 }
 */
 
-
+// first need to break customers into car_make blocks: ford, GMC, etc.
+// for each block create an array of all the cool factors
 export function getAllCoolFactorsOfEachCar(customers) {
-    return true;
+    return customers.reduce((acc, customer) => {
+        if(!acc[customer.car_make]) {
+            acc[customer.car_make] = [customer.cool_factor];
+        } else {
+            acc[customer.car_make].push(customer.cool_factor);
+        }
+        return acc;
+    }, {});
 }
+
+// const carMakeBreakdown = customers.reduce((acc, customer) => {
+//     if(!acc[customer.car_make]) {
+//         acc[customer.car_make] = customers
+//             .filter((filteredCustomer) => customer.car_make === filteredCustomer.car_make)
+//             .map(({ cool_factor }) => `${cool_factor}`);
+//         return acc;
+//     }
+// });
+// return carMakeBreakdown;
 
 /////////////////////////////// STRETCH GOALS ///////////////////////////////////////
 /////////////////////////////// STRETCH GOALS ///////////////////////////////////////
@@ -123,8 +236,42 @@ Output:
 */
 
 export function getAverageCoolFactorOfEachCar(customers) {
-    return true;
+    const avgCoolFactor = customers.reduce((acc, customer) => {
+        if(!acc[customer.car_make]) {
+            acc[customer.car_make] = customers
+                .filter((customer) => customer.car_make === customer.car_make)
+                .reduce((acc2, customer2, index) => {
+                    acc2 = acc2 + customer2.cool_factor;
+                    return acc2;
+                }, 0) / (customers.filter((customer) => customer.car_make === customer.car_make).length);
+        }
+        return acc;
+    }, {});
+    return avgCoolFactor;
 }
+            
+            
+            
+            
+//             [customer.cool_factor];
+//         } else {
+//             acc[customer.car_make].push(customer.cool_factor);
+//         }
+//         return acc;
+//     });
+// }
+
+// const customerArray = customers.map(({ cool_factor }) => `${cool_factor}`);
+// const customerNumber = customerArray.length;
+
+// return acc + (customer.cool_factor / customerNumber);
+
+
+// return customers.reduce((acc, customer) => {
+
+//     return acc + customer.age;
+// }, 0);
+
 
 
 /* 
@@ -145,7 +292,17 @@ Output:
 */
 
 export function makeAgeBrackets(customers) {
-    return true;
+
+    const ageBucketMap = customers.reduce(
+        (acc, customer) => {
+            if(customer.age >0 && customer.age < 11) {
+                if(!acc.10) {
+                    acc.10 = []
+                };
+                acc.10.push(customer)
+            }
+        },
+    )
 }
 
 /* 
